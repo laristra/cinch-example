@@ -16,18 +16,37 @@ cmake_minimum_required(VERSION 2.8.12)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 #------------------------------------------------------------------------------#
-# CMake includes
+# Setup for project and subproject configurations.
 #------------------------------------------------------------------------------#
 
-include(info)
-include(insource)
+if("${NGC_CONFIG_TOPLEVEL}" STREQUAL "")
 
-#------------------------------------------------------------------------------#
-# Keep users from creating insource builds.
-# This script is in cmake/insource.cmake
-#------------------------------------------------------------------------------#
+  #----------------------------------------------------------------------------#
+  # CMake includes
+  #----------------------------------------------------------------------------#
 
-prevent_insource_builds()
+  include(info)
+  include(insource)
+
+  #----------------------------------------------------------------------------#
+  # Keep users from creating insource builds.
+  # This script is in cmake/insource.cmake
+  #----------------------------------------------------------------------------#
+
+  prevent_insource_builds()
+
+  #----------------------------------------------------------------------------#
+  # Add top-level targets
+  #----------------------------------------------------------------------------#
+
+  add_custom_target(info.libtest cat .libtest.buildinfo)
+  add_custom_target(distclean rm -rf ${CMAKE_BINARY_DIR}/*)
+
+else()
+
+  add_custom_target(info.libtest cat .libtest.buildinfo)
+
+endif()
 
 #------------------------------------------------------------------------------#
 # Test project to demonstrate cmake configuration
@@ -41,9 +60,9 @@ project(libtest)
   set(libtest_VERSION_PATCH 1)
 
   # Global project settings
-  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)
-  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY lib)
-  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY lib)
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
   add_subdirectory(src)
   include_directories(${libtest_INCDIRS})
@@ -56,10 +75,7 @@ project(libtest)
   target_link_libraries(app libtest ${EXTRA_LIBS})
 
   # Generate info file for main library
-  make_info(main "${libtest_HEADERS}" "${libtest_SOURCES}")
-
-#  add_custom_target(info cat .main.buildinfo)
-#  add_custom_target(distclean rm -rf ${CMAKE_BINARY_DIR}/*)
+  make_info(libtest "${libtest_HEADERS}" "${libtest_SOURCES}")
 
 # project
 
