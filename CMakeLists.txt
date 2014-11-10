@@ -58,8 +58,8 @@ project(test)
   # Generate info file for main library
   make_info(main "${ngc_HEADERS}" "${ngc_SOURCES}")
 
-  add_custom_target(info cat .main.buildinfo)
-  add_custom_target(distclean rm -rf ${CMAKE_BINARY_DIR}/*)
+#  add_custom_target(info cat .main.buildinfo)
+#  add_custom_target(distclean rm -rf ${CMAKE_BINARY_DIR}/*)
 
 # project
 
