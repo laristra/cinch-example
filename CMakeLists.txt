@@ -33,12 +33,12 @@ prevent_insource_builds()
 # Test project to demonstrate cmake configuration
 #------------------------------------------------------------------------------#
 
-project(test)
+project(libtest)
 
   # Version informaiton
-  set(test_VERSION_MAJOR 1)
-  set(test_VERSION_MINOR 0)
-  set(test_VERSION_PATCH 1)
+  set(libtest_VERSION_MAJOR 1)
+  set(libtest_VERSION_MINOR 0)
+  set(libtest_VERSION_PATCH 1)
 
   # Global project settings
   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)
@@ -46,17 +46,17 @@ project(test)
   set(CMAKE_LIBRARY_OUTPUT_DIRECTORY lib)
 
   add_subdirectory(src)
-  include_directories(${ngc_INCDIRS})
+  include_directories(${libtest_INCDIRS})
 
   # Add a rule to build the library
-  add_library(ngc SHARED ${ngc_SOURCES} ${ngc_HEADERS})
+  add_library(libtest SHARED ${libtest_SOURCES} ${libtest_HEADERS})
 
   # Add a rule to build the executable
   add_executable(app src/app/app.cc)
-  target_link_libraries(app ngc ${EXTRA_LIBS})
+  target_link_libraries(app libtest ${EXTRA_LIBS})
 
   # Generate info file for main library
-  make_info(main "${ngc_HEADERS}" "${ngc_SOURCES}")
+  make_info(main "${libtest_HEADERS}" "${libtest_SOURCES}")
 
 #  add_custom_target(info cat .main.buildinfo)
 #  add_custom_target(distclean rm -rf ${CMAKE_BINARY_DIR}/*)

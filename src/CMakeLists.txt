@@ -23,9 +23,9 @@ foreach(_SUBDIR util data grid)
 #    cat "${CMAKE_BINARY_DIR}/.${_SUBDIR}.buildinfo")
 endforeach(_SUBDIR)
 
-set(ngc_HEADERS ${HEADERS} PARENT_SCOPE)
-set(ngc_SOURCES ${SOURCES} PARENT_SCOPE)
-set(ngc_INCDIRS ${INCDIRS} PARENT_SCOPE)
+set(libtest_HEADERS ${HEADERS} PARENT_SCOPE)
+set(libtest_SOURCES ${SOURCES} PARENT_SCOPE)
+set(libtest_INCDIRS ${INCDIRS} PARENT_SCOPE)
 
 #------------------------------------------------------------------------------#
 # Formatting options for emacs and vim.
