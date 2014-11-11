@@ -19,7 +19,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 # Setup for project and subproject configurations.
 #------------------------------------------------------------------------------#
 
-if("${NGC_CONFIG_TOPLEVEL}" STREQUAL "")
+if("${NGC_CONFIG_TOPLEVEL}" STREQUAL "") # This project is top-level
 
   #----------------------------------------------------------------------------#
   # CMake includes
@@ -39,12 +39,14 @@ if("${NGC_CONFIG_TOPLEVEL}" STREQUAL "")
   # Add top-level targets
   #----------------------------------------------------------------------------#
 
-  add_custom_target(info.libtest cat .libtest.buildinfo)
+  add_custom_target(info cat .libtest.buildinfo)
   add_custom_target(distclean rm -rf ${CMAKE_BINARY_DIR}/*)
+  set(NGC_CONFIG_INFOTAG "info")
 
-else()
+else() # This is a subproject
 
-  add_custom_target(info.libtest cat .libtest.buildinfo)
+  add_custom_target(info.libtest cat "${CMAKE_BINARY_DIR}/.libtest.buildinfo")
+  set(NGC_CONFIG_INFOTAG "info.libtest")
 
 endif()
 
