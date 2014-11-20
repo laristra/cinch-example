@@ -18,9 +18,7 @@ foreach(_SUBDIR util data grid)
   list(APPEND INCDIRS ${CMAKE_CURRENT_SOURCE_DIR}/${_SUBDIR})
   list(APPEND HEADERS ${${_SUBDIR}_HEADERS})
   list(APPEND SOURCES ${${_SUBDIR}_SOURCES})
-  make_info("${_SUBDIR}" "${${_SUBDIR}_HEADERS}" "${${_SUBDIR}_SOURCES}")
-  add_custom_target(${NGC_CONFIG_INFOTAG}.${_SUBDIR}
-    cat "${CMAKE_BINARY_DIR}/.${_SUBDIR}.buildinfo")
+  make_info("${NGC_CONFIG_INFOTAG}.${_SUBDIR}" "${${_SUBDIR}_HEADERS}" "${${_SUBDIR}_SOURCES}")
 endforeach(_SUBDIR)
 
 set(libtest_HEADERS ${HEADERS} PARENT_SCOPE)

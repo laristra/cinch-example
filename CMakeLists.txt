@@ -15,40 +15,29 @@ cmake_minimum_required(VERSION 2.8.12)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
-#------------------------------------------------------------------------------#
-# Setup for project and subproject configurations.
-#------------------------------------------------------------------------------#
+#----------------------------------------------------------------------------#
+# CMake includes
+#----------------------------------------------------------------------------#
 
-if("${NGC_CONFIG_TOPLEVEL}" STREQUAL "") # This project is top-level
+include(info)
+include(insource)
 
-  #----------------------------------------------------------------------------#
-  # CMake includes
-  #----------------------------------------------------------------------------#
+#----------------------------------------------------------------------------#
+# Keep users from creating insource builds.
+# This script is in cmake/insource.cmake
+#----------------------------------------------------------------------------#
 
-  include(info)
-  include(insource)
+prevent_insource_builds()
 
-  #----------------------------------------------------------------------------#
-  # Keep users from creating insource builds.
-  # This script is in cmake/insource.cmake
-  #----------------------------------------------------------------------------#
-
-  prevent_insource_builds()
-
-  #----------------------------------------------------------------------------#
-  # Add top-level targets
-  #----------------------------------------------------------------------------#
-
-  add_custom_target(info cat .libtest.buildinfo)
+#----------------------------------------------------------------------------#
+# Add top-level targets
+#----------------------------------------------------------------------------#
+  
+if(NOT TARGET distclean)
   add_custom_target(distclean rm -rf ${CMAKE_BINARY_DIR}/*)
-  set(NGC_CONFIG_INFOTAG "info")
-
-else() # This is a subproject
-
-  add_custom_target(info.libtest cat "${CMAKE_BINARY_DIR}/.libtest.buildinfo")
-  set(NGC_CONFIG_INFOTAG "info.libtest")
-
-endif()
+endif(NOT TARGET distclean)
+  
+set(NGC_CONFIG_INFOTAG "info.libtest")
 
 #------------------------------------------------------------------------------#
 # Test project to demonstrate cmake configuration
