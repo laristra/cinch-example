@@ -4,7 +4,7 @@
 namespace data {
 
 void doit(char * str) {
-	std::cerr << "data part printing: " << str << std::endl;
+    std::cerr << "data part printing: " << str << std::endl;
 } // doit
 
 } // namespace data

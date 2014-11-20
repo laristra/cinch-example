@@ -4,7 +4,7 @@
 namespace grid {
 
 void doit(char * str) {
-	std::cerr << "grid part printing: " << str << std::endl;
+    std::cerr << "grid part printing: " << str << std::endl;
 } // doit
 
 } // namespace grid
