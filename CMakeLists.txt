@@ -19,36 +19,19 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 # Setup for project and subproject configurations.
 #------------------------------------------------------------------------------#
 
-if("${NGC_CONFIG_TOPLEVEL}" STREQUAL "") # This project is top-level
+#------------------------------------------------------------------------------#
+# CMake includes
+#------------------------------------------------------------------------------#
 
-  #----------------------------------------------------------------------------#
-  # CMake includes
-  #----------------------------------------------------------------------------#
+include(info)
+include(insource)
 
-  include(info)
-  include(insource)
+#------------------------------------------------------------------------------#
+# Keep users from creating insource builds.
+# This script is in cmake/insource.cmake
+#------------------------------------------------------------------------------#
 
-  #----------------------------------------------------------------------------#
-  # Keep users from creating insource builds.
-  # This script is in cmake/insource.cmake
-  #----------------------------------------------------------------------------#
-
-  prevent_insource_builds()
-
-  #----------------------------------------------------------------------------#
-  # Add top-level targets
-  #----------------------------------------------------------------------------#
-
-  add_custom_target(info cat .libtest.buildinfo)
-  add_custom_target(distclean rm -rf ${CMAKE_BINARY_DIR}/*)
-  set(NGC_CONFIG_INFOTAG "info")
-
-else() # This is a subproject
-
-  add_custom_target(info.libtest cat "${CMAKE_BINARY_DIR}/.libtest.buildinfo")
-  set(NGC_CONFIG_INFOTAG "info.libtest")
-
-endif()
+prevent_insource_builds()
 
 #------------------------------------------------------------------------------#
 # Test project to demonstrate cmake configuration
@@ -75,9 +58,6 @@ project(libtest)
   # Add a rule to build the executable
   add_executable(app src/app/app.cc)
   target_link_libraries(app libtest ${EXTRA_LIBS})
-
-  # Generate info file for main library
-  make_info(libtest "${libtest_HEADERS}" "${libtest_SOURCES}")
 
 # project
 
