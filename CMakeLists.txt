@@ -15,9 +15,9 @@ cmake_minimum_required(VERSION 2.8.12)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
-#----------------------------------------------------------------------------#
+#------------------------------------------------------------------------------#
 # CMake includes
-#----------------------------------------------------------------------------#
+#------------------------------------------------------------------------------#
 
 include(info)
 include(insource)
@@ -34,7 +34,7 @@ prevent_insource_builds()
 #----------------------------------------------------------------------------#
   
 if(NOT TARGET distclean)
-  add_custom_target(distclean rm -rf ${CMAKE_BINARY_DIR}/*)
+    add_custom_target(distclean rm -rf ${CMAKE_BINARY_DIR}/*)
 endif(NOT TARGET distclean)
   
 set(NGC_CONFIG_INFOTAG "info.libtest")
@@ -65,12 +65,9 @@ project(libtest)
   add_executable(app src/app/app.cc)
   target_link_libraries(app libtest ${EXTRA_LIBS})
 
-  # Generate info file for main library
-  make_info(libtest "${libtest_HEADERS}" "${libtest_SOURCES}")
-
 # project
 
 #------------------------------------------------------------------------------#
 # Formatting options for emacs and vim.
-# vim: set tabstop=2 shiftwidth=2 expandtab :
+# vim: set tabstop=4 shiftwidth=4 expandtab :
 #------------------------------------------------------------------------------#

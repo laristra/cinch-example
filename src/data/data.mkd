@@ -1,4 +1,0 @@
-# Data Module {#data}
-
-The data module provides a low-leve interface to the libraries and tools used to allocate
-and maintain memory allocations.
