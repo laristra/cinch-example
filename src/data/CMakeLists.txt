@@ -5,8 +5,8 @@
 
 # Add header files
 set(data_HEADERS
-  ${CMAKE_CURRENT_SOURCE_DIR}/dpart.h
-  PARENT_SCOPE
+    ${CMAKE_CURRENT_SOURCE_DIR}/dpart.h
+    PARENT_SCOPE
 )
 
 # Add source files
@@ -17,5 +17,5 @@ set(data_HEADERS
 
 #------------------------------------------------------------------------------#
 # Formatting options for emacs and vim.
-# vim: set tabstop=2 shiftwidth=2 expandtab :
+# vim: set tabstop=4 shiftwidth=4 expandtab :
 #------------------------------------------------------------------------------#
