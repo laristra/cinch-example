@@ -35,9 +35,6 @@ prevent_insource_builds()
   
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
     add_custom_target(distclean rm -rf ${CMAKE_BINARY_DIR}/*)
-    set(NGC_CONFIG_INFOTAG)
-else()
-    set(NGC_CONFIG_INFOTAG "libtest")
 endif(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
 
 #------------------------------------------------------------------------------#
