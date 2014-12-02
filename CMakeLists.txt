@@ -13,7 +13,7 @@ cmake_minimum_required(VERSION 2.8.12)
 # Add path for local modules
 #------------------------------------------------------------------------------#
 
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cinch/cmake)
 
 #------------------------------------------------------------------------------#
 # CMake includes

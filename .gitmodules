@@ -1,4 +1,0 @@
-[submodule "cmake"]
-	path = cmake
-	url = git@darwin.lanl.gov:ngccmake.git
-	branch = master
