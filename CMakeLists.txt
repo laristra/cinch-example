@@ -39,6 +39,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cinch/cmake)
 
 include(info)
 include(insource)
+include(subdirlist)
 
 #----------------------------------------------------------------------------#
 # Keep users from creating insource builds.
