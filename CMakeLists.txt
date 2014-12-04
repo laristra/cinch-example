@@ -5,10 +5,14 @@
 
 project(libtest)
 
+set(CINCH_APPLICATION_DIRECTORY "app")
+set(CINCH_LIBRARY_TARGET "testlib")
+set(CINCH_CONFIG_SUBPROJECTS)
+
 # Version informaiton
-set(${CMAKE_PROJECT_NAME}_VERSION_MAJOR 1)
-set(${CMAKE_PROJECT_NAME}_VERSION_MINOR 0)
-set(${CMAKE_PROJECT_NAME}_VERSION_PATCH 1)
+set(${PROJECT_NAME}_VERSION_MAJOR 1)
+set(${PROJECT_NAME}_VERSION_MINOR 0)
+set(${PROJECT_NAME}_VERSION_PATCH 1)
 
 ################################################################################
 # Please Do Not Edit Below Here Unless You Know What You Are Doing!!!
@@ -41,14 +45,17 @@ include(insource)
 # This script is in cmake/insource.cmake
 #----------------------------------------------------------------------------#
 
-prevent_insource_builds()
+cinch_prevent_insource_builds()
 
 #----------------------------------------------------------------------------#
 # Add top-level targets
 #----------------------------------------------------------------------------#
-  
+
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
     add_custom_target(distclean rm -rf ${CMAKE_BINARY_DIR}/*)
+    set(CINCH_CONFIG_INFOTAG)
+else()
+    set(CINCH_CONFIG_INFOTAG "${PROJECT_NAME}.")
 endif(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
 
 #------------------------------------------------------------------------------#
@@ -60,21 +67,46 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
-add_subdirectory(src)
-include_directories(${libtest_INCDIRS})
-
 #------------------------------------------------------------------------------#
-# Generate target info
+# Add sub-projects
 #------------------------------------------------------------------------------#
 
-make_info(libtest "${libtest_HEADERS}" "${applib_SOURCES}")
+if(CINCH_CONFIG_SUBPROJECTS)
+    foreach(subproject ${CINCH_CONFIG_SUBPROJECTS})
+        add_subdirectory(${subproject})
+    endforeach(subproject)
+endif(CINCH_CONFIG_SUBPROJECTS)
 
-# Add a rule to build the library
-add_library(libtest SHARED ${libtest_SOURCES} ${libtest_HEADERS})
+#------------------------------------------------------------------------------#
+# Library target
+#------------------------------------------------------------------------------#
 
-# Add a rule to build the executable
-add_executable(app src/app/app.cc)
-target_link_libraries(app libtest ${EXTRA_LIBS})
+if(CINCH_LIBRARY_TARGET)
+
+    add_subdirectory(src)
+
+    include_directories(${${CINCH_LIBRARY_TARGET}_INCDIRS})
+
+    #--------------------------------------------------------------------------#
+    # Generate info target
+    #--------------------------------------------------------------------------#
+
+    cinch_make_info("${CINCH_CONFIG_INFOTAG}main"
+        "${${CINCH_LIBRARY_TARGET}_HEADERS}"
+        "${${CINCH_LIBRARY_TARGET}_SOURCES}")
+
+    #--------------------------------------------------------------------------#
+    # Add a rule to build the library
+    #--------------------------------------------------------------------------#
+
+    add_library(${CINCH_LIBRARY_TARGET} ${${CINCH_LIBRARY_TARGET}_SOURCES}
+        ${${CINCH_LIBRARY_TARGET}_HEADERS})
+
+endif(CINCH_LIBRARY_TARGET)
+
+if(CINCH_APPLICATION_DIRECTORY)
+    add_subdirectory(${CINCH_APPLICATION_DIRECTORY})
+endif(CINCH_APPLICATION_DIRECTORY)
 
 #------------------------------------------------------------------------------#
 # Formatting options for emacs and vim.
