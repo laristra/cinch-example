@@ -53,10 +53,34 @@ cinch_prevent_insource_builds()
 #----------------------------------------------------------------------------#
 
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
+
+    #--------------------------------------------------------------------------#
+    # This is a top-level build
+    #--------------------------------------------------------------------------#
+
     add_custom_target(distclean rm -rf ${CMAKE_BINARY_DIR}/*)
     set(CINCH_CONFIG_INFOTAG)
+
+    #--------------------------------------------------------------------------#
+    # Add support for ctest
+    #--------------------------------------------------------------------------#
+
+    option(ENABLE_UNIT_TESTS "Enable unit testing" OFF)
+
+    if(ENABLE_UNIT_TESTS)
+        enable_testing()
+        add_subdirectory(cinch/gtest)
+        include_directories(cinch/gtest/include)
+    endif(ENABLE_UNIT_TESTS)
+
 else()
+
+    #--------------------------------------------------------------------------#
+    # This is a submodule
+    #--------------------------------------------------------------------------#
+
     set(CINCH_CONFIG_INFOTAG "${PROJECT_NAME}.")
+
 endif(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
 
 #------------------------------------------------------------------------------#

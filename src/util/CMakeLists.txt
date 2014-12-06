@@ -15,6 +15,10 @@ set(util_SOURCES
     PARENT_SCOPE
 )
 
+if(ENABLE_UNIT_TESTS)
+    cinch_add_unit(times_two times_two.cc)
+endif(ENABLE_UNIT_TESTS)
+
 #------------------------------------------------------------------------------#
 # Formatting options for emacs and vim.
 # vim: set tabstop=4 shiftwidth=4 expandtab :
