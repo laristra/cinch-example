@@ -83,7 +83,7 @@ else()
     # This is a submodule
     #--------------------------------------------------------------------------#
 
-    set(CINCH_CONFIG_INFOTAG "${PROJECT_NAME}")
+    set(CINCH_CONFIG_INFOTAG "${PROJECT_NAME}.")
 
 endif(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
 
