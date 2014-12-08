@@ -28,7 +28,7 @@ set(${PROJECT_NAME}_VERSION_PATCH 1)
 cmake_minimum_required(VERSION 2.8.12)
 
 #------------------------------------------------------------------------------#
-# Add path for local modules
+# Add path for cinch modules
 #------------------------------------------------------------------------------#
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cinch/cmake)
@@ -40,17 +40,18 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cinch/cmake)
 include(info)
 include(insource)
 include(subdirlist)
+include(unit)
 
-#----------------------------------------------------------------------------#
+#------------------------------------------------------------------------------#
 # Keep users from creating insource builds.
 # This script is in cmake/insource.cmake
-#----------------------------------------------------------------------------#
+#------------------------------------------------------------------------------#
 
 cinch_prevent_insource_builds()
 
-#----------------------------------------------------------------------------#
+#------------------------------------------------------------------------------#
 # Add top-level targets
-#----------------------------------------------------------------------------#
+#------------------------------------------------------------------------------#
 
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
 
@@ -71,6 +72,9 @@ if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
         enable_testing()
         add_subdirectory(cinch/gtest)
         include_directories(cinch/gtest/include)
+        add_custom_target(jenkins
+            cmake -DCINCH_MODULE_DIR=${CMAKE_SOURCE_DIR}/cinch/cmake
+                -P ${CMAKE_SOURCE_DIR}/cinch/cmake/run_units.cmake)
     endif(ENABLE_UNIT_TESTS)
 
 else()
@@ -79,12 +83,12 @@ else()
     # This is a submodule
     #--------------------------------------------------------------------------#
 
-    set(CINCH_CONFIG_INFOTAG "${PROJECT_NAME}.")
+    set(CINCH_CONFIG_INFOTAG "${PROJECT_NAME}")
 
 endif(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
 
 #------------------------------------------------------------------------------#
-# Test project to demonstrate cmake configuration
+# Set output directories for targets
 #------------------------------------------------------------------------------#
 
 # Global project settings
