@@ -41,6 +41,7 @@ include(info)
 include(insource)
 include(subdirlist)
 include(unit)
+include(documentation)
 
 #------------------------------------------------------------------------------#
 # Keep users from creating insource builds.
@@ -76,6 +77,19 @@ if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
             cmake -DCINCH_MODULE_DIR=${CMAKE_SOURCE_DIR}/cinch/cmake
                 -P ${CMAKE_SOURCE_DIR}/cinch/cmake/run_units.cmake)
     endif(ENABLE_UNIT_TESTS)
+
+    #--------------------------------------------------------------------------#
+    # Add support for ngc documentation
+    #--------------------------------------------------------------------------#
+
+    option(ENABLE_DOCUMENTATION "Enable documentation build" OFF)
+
+    if(ENABLE_DOCUMENTATION)
+        cinch_add_doc(userguide ${CMAKE_SOURCE_DIR}/doc/ugconfig.py
+            ${CMAKE_SOURCE_DIR}/src userguide.pdf)
+        cinch_add_doc(developerguide ${CMAKE_SOURCE_DIR}/doc/dgconfig.py
+            ${CMAKE_SOURCE_DIR}/src developerguide.pdf)
+    endif(ENABLE_DOCUMENTATION)
 
 else()
 
