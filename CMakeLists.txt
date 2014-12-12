@@ -71,8 +71,14 @@ if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
 
     if(ENABLE_UNIT_TESTS)
         enable_testing()
-        add_subdirectory(cinch/gtest)
-        include_directories(cinch/gtest/include)
+        find_package(GTest)
+        if(GTEST_FOUND)
+          include_directories(GTEST_INCLUDE_DIRS)
+        else()
+          add_subdirectory(cinch/gtest)
+          include_directories(cinch/gtest/include)
+          set(GTEST_BOTH_LIBRARIES gtest gtest_main)
+        endif()
         add_custom_target(jenkins
             cmake -DCINCH_MODULE_DIR=${CMAKE_SOURCE_DIR}/cinch/cmake
                 -P ${CMAKE_SOURCE_DIR}/cinch/cmake/run_units.cmake)
