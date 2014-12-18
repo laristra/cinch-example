@@ -9,11 +9,6 @@ set(CINCH_APPLICATION_DIRECTORY "app")
 set(CINCH_LIBRARY_TARGET "testlib")
 set(CINCH_CONFIG_SUBPROJECTS)
 
-# Version informaiton
-set(${PROJECT_NAME}_VERSION_MAJOR 1)
-set(${PROJECT_NAME}_VERSION_MINOR 0)
-set(${PROJECT_NAME}_VERSION_PATCH 1)
-
 ################################################################################
 # Please Do Not Edit Below Here Unless You Know What You Are Doing!!!
 #
@@ -42,6 +37,20 @@ include(insource)
 include(subdirlist)
 include(unit)
 include(documentation)
+include(version)
+
+#------------------------------------------------------------------------------#
+# Create a version for the project
+#------------------------------------------------------------------------------#
+
+option(CINCH_STATIC_VERSION
+    "Set a static version (don't use 'git describe')" OFF)
+
+if(CINCH_STATIC_VERSION)
+    set(${PROJECT_NAME}_VERSION ${CINCH_STATIC_VERSION})
+else()
+    cinch_make_version()
+endif(CINCH_STATIC_VERSION)
 
 #------------------------------------------------------------------------------#
 # Keep users from creating insource builds.
@@ -85,16 +94,18 @@ if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
     endif(ENABLE_UNIT_TESTS)
 
     #--------------------------------------------------------------------------#
-    # Add support for ngc documentation
+    # Add support for cinch documentation
     #--------------------------------------------------------------------------#
 
     option(ENABLE_DOCUMENTATION "Enable documentation build" OFF)
 
     if(ENABLE_DOCUMENTATION)
-        cinch_add_doc(userguide ${CMAKE_SOURCE_DIR}/doc/ugconfig.py
-            ${CMAKE_SOURCE_DIR}/src userguide.pdf)
-        cinch_add_doc(developerguide ${CMAKE_SOURCE_DIR}/doc/dgconfig.py
-            ${CMAKE_SOURCE_DIR}/src developerguide.pdf)
+        cinch_add_doc(${PROJECT_NAME}-ug ${CMAKE_SOURCE_DIR}/doc/ugconfig.py
+            ${CMAKE_SOURCE_DIR}/src
+            ${PROJECT_NAME}-ug-${${PROJECT_NAME}_VERSION}.pdf)
+        cinch_add_doc(${PROJECT_NAME}-dg ${CMAKE_SOURCE_DIR}/doc/dgconfig.py
+            ${CMAKE_SOURCE_DIR}/src
+            ${PROJECT_NAME}-dg-${${PROJECT_NAME}_VERSION}.pdf)
     endif(ENABLE_DOCUMENTATION)
 
 else()
@@ -106,6 +117,23 @@ else()
     set(CINCH_CONFIG_INFOTAG "${PROJECT_NAME}.")
 
 endif(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
+
+
+option(ENABLE_DOXYGEN "Enable Doxygen documentation build" OFF)
+
+if(ENABLE_DOXYGEN)
+    find_package(Doxygen)
+
+    if(NOT DOXYGEN_FOUND)
+        message(FATAL_ERROR "Doxygen is needed to enable this option")
+    endif(NOT DOXYGEN_FOUND)
+
+    configure_file(${CMAKE_SOURCE_DIR}/doc/doxygen.conf.in
+        ${CMAKE_BINARY_DIR}/doc/doxygen.conf)
+    add_custom_target(doxygen ALL
+        ${DOXYGEN} ${CMAKE_BINARY_DIR}/doc/doxygen.conf
+        DEPENDS ${CMAKE_SOURCE_DIR}/doc/doxygen.conf.in)
+endif(ENABLE_DOXYGEN)
 
 #------------------------------------------------------------------------------#
 # Set output directories for targets
