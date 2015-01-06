@@ -773,13 +773,13 @@ INPUT_ENCODING         = UTF-8
 # *.md, *.mm, *.dox, *.py, *.f90, *.f, *.for, *.tcl, *.vhd, *.vhdl, *.ucf,
 # *.qsf, *.as and *.js.
 
-FILE_PATTERNS          =
+FILE_PATTERNS          = *.h *.cc
 
 # The RECURSIVE tag can be used to specify whether or not subdirectories should
 # be searched for input files as well.
 # The default value is: NO.
 
-RECURSIVE              = NO
+RECURSIVE              = YES
 
 # The EXCLUDE tag can be used to specify files and/or directories that should be
 # excluded from the INPUT source files. This way you can easily exclude a
@@ -1845,7 +1845,7 @@ DOCBOOK_OUTPUT         = docbook
 # The default value is: NO.
 # This tag requires that the tag GENERATE_DOCBOOK is set to YES.
 
-DOCBOOK_PROGRAMLISTING = NO
+#DOCBOOK_PROGRAMLISTING = NO
 
 #---------------------------------------------------------------------------
 # Configuration options for the AutoGen Definitions output
@@ -2268,7 +2268,7 @@ DIAFILE_DIRS           =
 # will not generate output for the diagram.
 # This tag requires that the tag HAVE_DOT is set to YES.
 
-PLANTUML_JAR_PATH      =
+#PLANTUML_JAR_PATH      =
 
 # The DOT_GRAPH_MAX_NODES tag can be used to set the maximum number of nodes
 # that will be shown in the graph. If the number of nodes in a graph becomes
