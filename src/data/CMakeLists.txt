@@ -5,13 +5,13 @@
 
 # Add header files
 set(data_HEADERS
-    ${CMAKE_CURRENT_SOURCE_DIR}/dpart.h
+    dpart.h
     PARENT_SCOPE
 )
 
 # Add source files
 #set(data_SOURCES
-# ${CMAKE_CURRENT_SOURCE_DIR}/mysource.cc
+# mysource.cc
 # PARENT_SCOPE
 #)
 

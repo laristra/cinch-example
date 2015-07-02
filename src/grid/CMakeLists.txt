@@ -5,14 +5,14 @@
 
 # Add header files
 set(grid_HEADERS
-    ${CMAKE_CURRENT_SOURCE_DIR}/gpart.h
+    gpart.h
     PARENT_SCOPE
 )
 
 # Add source files
 #set(data_SOURCES
-# ${CMAKE_CURRENT_SOURCE_DIR}/mysource.cc
-# PARENT_SCOPE
+#    mysource.cc
+#    PARENT_SCOPE
 #)
 
 #------------------------------------------------------------------------------#

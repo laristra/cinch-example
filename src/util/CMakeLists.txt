@@ -5,13 +5,13 @@
 
 # Add header files
 set(util_HEADERS
-    ${CMAKE_CURRENT_SOURCE_DIR}/upart.h
+    upart.h
     PARENT_SCOPE
 )
 
 # Add source files
 set(util_SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/upart.cc
+    upart.cc
     PARENT_SCOPE
 )
 
