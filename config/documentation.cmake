@@ -3,7 +3,8 @@
 # All rights reserved.
 #------------------------------------------------------------------------------#
 
-cinch_add_doc(libtest-ug ugconfig.py src libtest-ug-${libtest_VERSION}.pdf)
+cinch_add_doc(libtest-ug ugconfig.py src
+    libtest-ug-${${PROJECT_NAME}_VERSION}.pdf)
 
 #------------------------------------------------------------------------------#
 # Formatting options for emacs and vim.
