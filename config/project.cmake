@@ -15,6 +15,12 @@ cinch_add_application_directory("app")
 
 cinch_add_library_target("testlib" "src")
 
+#------------------------------------------------------------------------------#
+# Set header suffix regular expression
+#------------------------------------------------------------------------------#
+
+set(CINCH_HEADER_SUFFIXES "\\.h|\\.hh")
+
 #~---------------------------------------------------------------------------~-#
 # Formatting options for emacs and vim.
 # vim: set tabstop=4 shiftwidth=4 expandtab :
