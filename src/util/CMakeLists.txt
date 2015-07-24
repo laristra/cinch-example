@@ -16,7 +16,7 @@ set(util_SOURCES
 )
 
 if(ENABLE_UNIT_TESTS)
-    cinch_add_unit(times_two times_two.cc)
+    cinch_add_unit(times_two SOURCES times_two.cc)
 endif(ENABLE_UNIT_TESTS)
 
 #------------------------------------------------------------------------------#
