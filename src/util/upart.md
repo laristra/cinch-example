@@ -1,4 +1,4 @@
-<!-- CINCHDOC DOCUMENT(User Guide) CHAPTER(Test) -->
+<!-- CINCHDOC DOCUMENT(User Guide) SECTION(Test) -->
 
 # Utils Test
 
@@ -14,7 +14,7 @@ This is some documentation...
 	\frac{\partial q}{\partial t} + \nabla \cdot f(q) = 0
 \end{equation}
 
-<!-- CINCHDOC DOCUMENT(Developer Guide) CHAPTER(Test)  --------------------- -->
+<!-- CINCHDOC DOCUMENT(Developer Guide) SECTION(Test)  --------------------- -->
 
 # Developer Guide: Utils
 
@@ -22,7 +22,7 @@ This is some documentation that should not be in the user guide.
 
 <!-- CINCHDOC
     DOCUMENT(User Guide)
-	 CHAPTER(Extra)
+	 SECTION(Extra)
 -->
 
 # Utils Extra

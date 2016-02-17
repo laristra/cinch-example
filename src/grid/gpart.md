@@ -1,4 +1,4 @@
-<!-- CINCHDOC DOCUMENT(User Guide) CHAPTER(Grid) -->
+<!-- CINCHDOC DOCUMENT(User Guide) SECTION(Grid) -->
 
 # Grid Test
 
