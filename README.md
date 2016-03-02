@@ -1,5 +1,9 @@
 # Cinch Project Example
 
+# Release
+
+This software has been approved for open source release and has been assigned **LA-CC-15-070**.
+
 # Copyright
 
 Copyright (c) 2016, Los Alamos National Security, LLC
