@@ -15,6 +15,7 @@ addons:
       - openmpi-bin
       - gcc-4.9
       - g++-4.9
+      - gfortran-4.9
 
 before_install:
  - git -C cinch submodule init && git -C cinch submodule update
