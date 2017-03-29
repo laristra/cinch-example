@@ -17,7 +17,7 @@ cinch_add_application_directory("app")
 # Add a library target
 #------------------------------------------------------------------------------#
 
-cinch_add_library_target("simple" "src")
+cinch_add_library_target("simple" "simple")
 
 #------------------------------------------------------------------------------#
 # Set header suffix regular expression
