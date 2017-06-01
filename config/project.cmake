@@ -3,21 +3,40 @@
 # All rights reserved.
 #~----------------------------------------------------------------------------~#
 
-cinch_minimum_required(1.0)
+cinch_minimum_required(2.0)
 
 project(simple)
 
 #------------------------------------------------------------------------------#
-# Add an application directory
+# If a C++11 compiler is available, then set the appropriate flags
 #------------------------------------------------------------------------------#
 
-cinch_add_application_directory("app")
+include(cxx11)
+
+check_for_cxx11_compiler(CXX11_COMPILER)
+
+if(CXX11_COMPILER)
+    enable_cxx11()
+else()
+    message(FATAL_ERROR "C++11 compatible compiler not found")
+endif()
+
+#------------------------------------------------------------------------------#
+# Load the unit testing capabilities
+#------------------------------------------------------------------------------#
+cinch_load_extras()
 
 #------------------------------------------------------------------------------#
 # Add a library target
 #------------------------------------------------------------------------------#
 
 cinch_add_library_target("simple" "simple")
+
+#------------------------------------------------------------------------------#
+# Add an application directory
+#------------------------------------------------------------------------------#
+
+cinch_add_application_directory("app")
 
 #------------------------------------------------------------------------------#
 # Set header suffix regular expression
